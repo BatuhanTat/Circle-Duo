@@ -1,9 +1,12 @@
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
     #region Singleton class : PlayerMovement
+
+    public event EventHandler OnWin;
     public static PlayerMovement instance { get; private set; }
 
     private void Awake()
@@ -14,6 +17,9 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
         instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        //state = State.Busy;
     }
     #endregion
 
@@ -25,10 +31,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float rotationSpeed;
 
-    Rigidbody2D rb;
-    Vector3 startPosition;
-    Camera mainCamera;
-    float touchPosX;
+    private Rigidbody2D rb;
+    private Vector3 startPosition;
+    private Camera mainCamera;
+    private float touchPosX;
 
     private void Start()
     {
@@ -48,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
                 touchPosX = mainCamera.ScreenToWorldPoint(Input.mousePosition).x;
                 Debug.Log($"x position: {touchPosX}");
             }
-               
+
 
             if (Input.GetMouseButton(0))
             {
@@ -97,18 +103,28 @@ public class PlayerMovement : MonoBehaviour
 
         // Animation
         transform.DORotate(Vector3.zero, 1.0f)
-            .SetDelay(1.0f)
-            .SetEase(Ease.InOutBack);
+          .SetDelay(1.0f)
+          .SetEase(Ease.InOutBack);
 
         transform.DOMove(startPosition, 1.0f)
             .SetDelay(1.0f)
             .SetEase(Ease.OutFlash)
-            .OnComplete(() =>
-            {
-                redBallCollider.enabled = true;
-                blueBallCollider.enabled = true;
-                GameManager.instance.isGameOver = false;
-                MoveUpwards();
-            });
+             .OnComplete(() =>
+             {
+                 redBallCollider.enabled = true;
+                 blueBallCollider.enabled = true;
+                 GameManager.instance.isGameOver = false;
+                 MoveUpwards();
+             });
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("LevelEnd"))
+        {
+            Destroy(other.gameObject);
+            OnWin?.Invoke(this, EventArgs.Empty);
+            //GameManager.instance.LoadNextScene();
+        }
     }
 }
