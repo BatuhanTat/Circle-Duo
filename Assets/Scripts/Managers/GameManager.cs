@@ -26,12 +26,14 @@ public class GameManager : MonoBehaviour
     private void Player_OnWin(object sender, System.EventArgs e)
     {
         LoadNextScene();
+        Debug.Log("OnWin");
     }
     private void LoadNextScene()
     {
         int currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
-
-        if (currentLevelIndex < SceneManager.sceneCount)
+        Debug.Log($"Current level index: {currentLevelIndex}");
+        Debug.Log($"Scene count: {SceneManager.sceneCountInBuildSettings}");
+        if (currentLevelIndex < SceneManager.sceneCountInBuildSettings)
         {
             DOTween.KillAll();
             SceneManager.LoadSceneAsync(++currentLevelIndex);
