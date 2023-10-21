@@ -723,7 +723,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blueBallCollider: {fileID: 6034853984233155411}
   redBallCollider: {fileID: 6034853985439109173}
-  speed: 2.7
+  speed: 1.7
   rotationSpeed: 250
 --- !u!1001 &5554168886359477794
 PrefabInstance:

@@ -7,8 +7,8 @@ public class PlayerMovement : MonoBehaviour
     #region Singleton class : PlayerMovement
 
     public event EventHandler OnWin;
+    public event EventHandler OnRestart;
     public static PlayerMovement instance { get; private set; }
-
     private void Awake()
     {
         if (instance != null)
@@ -94,6 +94,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Restart()
     {
+        OnRestart?.Invoke(this, EventArgs.Empty);   
         // Disabling the colliders so that new collisions will not be happened
         // while balls coming back to the initial position & rotation.
         redBallCollider.enabled = false;
