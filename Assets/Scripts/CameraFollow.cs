@@ -22,7 +22,7 @@ public class CameraFollow : MonoBehaviour
         else
         { targetPos = targetTransform.position; }
         // Offset
-        targetPos.y += 3.2f;
+        targetPos.y += 3.4f;
         transform.position = targetPos;
     }
 }

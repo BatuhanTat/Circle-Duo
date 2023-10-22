@@ -22,7 +22,12 @@ public class BallCollision : MonoBehaviour
         {
             GameManager.instance.isGameOver = true;
             explosionVFX.Play();
-            SplatterManager.instance.AddSplatter(other.transform, other.GetContact(0).point, ballIndex);
+            if(other.collider != null)
+            {
+                Transform obstacleTransformParent = other.collider.transform.parent;
+                SplatterManager.instance.AddSplatter(obstacleTransformParent, other.GetContact(0).point, ballIndex);
+                obstacleTransformParent.GetComponent<SplatterCountHandler>().HandleSplatter();
+            }           
             PlayerMovement.instance.Restart();
         }
     }
