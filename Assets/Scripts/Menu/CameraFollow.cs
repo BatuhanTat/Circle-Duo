@@ -14,6 +14,8 @@ public class CameraFollow : MonoBehaviour
 
     private void LateUpdate()
     {
+
+
         Vector3 targetPos;
         if (targetTestTransform != null)
         {
@@ -24,5 +26,6 @@ public class CameraFollow : MonoBehaviour
         // Offset
         targetPos.y += 3.4f;
         transform.position = targetPos;
+
     }
 }
