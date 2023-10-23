@@ -26,21 +26,25 @@ public class ObstacleMovement : MonoBehaviour
 
     private void Obstacle_OnRestart(object sender, System.EventArgs e)
     {
-        rb.angularVelocity = 0.0f;
-        rb.velocity = Vector2.zero;
-        Vector3 startPosition = obstacleOffset.startPosition;
+        if (rb != null)
+        {
+            rb.angularVelocity = 0.0f;
+            rb.velocity = Vector2.zero;
+            Vector3 startPosition = obstacleOffset.startPosition;
 
-        // Animation
-        transform.DORotate(Vector3.zero, 1.0f)
-          .SetDelay(1.0f)
-          .SetEase(Ease.InOutBack);
+            // Animation
+            transform.DORotate(Vector3.zero, 1.0f)
+              .SetDelay(1.0f)
+              .SetEase(Ease.InOutBack);
 
-        transform.DOMove(startPosition, 1.0f)
-            .SetDelay(1.0f)
-            .SetEase(Ease.OutFlash)
-             .OnComplete(() =>
-             {
-                 MoveDownwards();
-             });
+            transform.DOMove(startPosition, 1.0f)
+                .SetDelay(1.0f)
+                .SetEase(Ease.OutFlash)
+                 .OnComplete(() =>
+                 {
+                     MoveDownwards();
+                 });
+        }
+
     }
 }
