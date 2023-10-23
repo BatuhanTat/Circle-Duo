@@ -92,6 +92,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("LastPlayedLevel", SceneManager.GetActiveScene().buildIndex);
         PlayerPrefs.Save(); // Optional: Manually save PlayerPrefs
+        PlayerMovement.instance.UpdatePosition();   
     }
 
 

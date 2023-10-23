@@ -6,7 +6,10 @@ public class CameraFollow : MonoBehaviour
 {
     [SerializeField] Transform targetTestTransform;
     Transform targetTransform;
-
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
     void Start()
     {
         targetTransform = PlayerMovement.instance.transform;

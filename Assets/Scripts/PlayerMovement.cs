@@ -17,9 +17,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
         instance = this;
-        DontDestroyOnLoad(gameObject);
-
-        //state = State.Busy;
+        DontDestroyOnLoad(gameObject);;
     }
     #endregion
 
@@ -125,8 +123,13 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(other.gameObject);
             OnWin?.Invoke(this, EventArgs.Empty);
-            startPosition = transform.position;
+            UpdatePosition();
             Debug.Log($"Start position: {startPosition}");
         }
+    }
+
+    public void UpdatePosition()
+    {
+        startPosition = transform.position;
     }
 }

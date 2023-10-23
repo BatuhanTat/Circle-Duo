@@ -20,5 +20,9 @@ public class ObstacleOffset : MonoBehaviour
         transform.position += Vector3.up * magnitude;
         startPosition = transform.position;
     }
-   
+    private IEnumerator LoadingDelay(object arg)
+    {
+        yield return new WaitForSeconds(0.6f);
+
+    }
 }
