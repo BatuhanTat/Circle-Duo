@@ -4,12 +4,21 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
+    public static CameraFollow instance { get; private set; }
+
     [SerializeField] Transform targetTestTransform;
     Transform targetTransform;
     private void Awake()
     {
-        DontDestroyOnLoad(this);
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
+
     void Start()
     {
         targetTransform = PlayerMovement.instance.transform;
@@ -17,7 +26,6 @@ public class CameraFollow : MonoBehaviour
 
     private void LateUpdate()
     {
-
 
         Vector3 targetPos;
         if (targetTestTransform != null)

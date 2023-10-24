@@ -1,7 +1,8 @@
 using UnityEngine;
 using DG.Tweening;
+using System.Collections;
 
-public class ObstacleSliding : MonoBehaviour, IObstacle
+public class ObstacleSliding : ObstacleBase
 {
     [SerializeField] float slideDistance;
     [SerializeField] float slideDuration;
@@ -11,7 +12,7 @@ public class ObstacleSliding : MonoBehaviour, IObstacle
         ExecuteObstacle_Behaviour();
     }
 
-    public void ExecuteObstacle_Behaviour()
+    public override void ExecuteObstacle_Behaviour()
     {
         transform
              .DOLocalMoveX(slideDistance, slideDuration)

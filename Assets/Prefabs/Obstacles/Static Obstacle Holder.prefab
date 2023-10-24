@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7207404544294465318}
   - component: {fileID: 9190676427860315233}
   - component: {fileID: 5412436917106551501}
+  - component: {fileID: 5642543700780054873}
   m_Layer: 0
   m_Name: Static Obstacle Holder
   m_TagString: Untagged
@@ -61,6 +62,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   splatterCountLimit: 4
+--- !u!114 &5642543700780054873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5311201232915899343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62af88ca23b4abb4b8ebc448210da4a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7366443560011353774
 PrefabInstance:
   m_ObjectHideFlags: 0
