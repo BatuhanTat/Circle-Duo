@@ -30,8 +30,10 @@ public class UIManager : MonoBehaviour
     {
         mainPanel.DOAnchorPos(Vector2.zero, 0.25f);
         levelPanel.DOAnchorPos(Vector2.zero, 0.25f);
-        settingsPanel.DOAnchorPos(Vector2.zero, 0.25f);
+        settingsPanel.DOAnchorPos(Vector2.zero, 0.25f);  
     }
+    public void Quit()
+    { Application.Quit(); }
 
     public void SelectLevel(Button button)
     {

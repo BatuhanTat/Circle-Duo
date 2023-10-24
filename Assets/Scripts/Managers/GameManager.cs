@@ -63,9 +63,9 @@ public class GameManager : MonoBehaviour
 
                 PlayerPrefs.SetInt("Level_" + levelIndex, 1);
                 PlayerPrefs.Save(); // Optional: Manually save PlayerPrefs
-                LoadNextlevel();
             }
         }
+        LoadNextlevel(); 
     }
 
     public void LoadLevel(string sceneName)
