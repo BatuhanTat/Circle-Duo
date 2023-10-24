@@ -17,7 +17,6 @@ public abstract class ObstacleBase : MonoBehaviour
     {
         if (trailRenderer != null)
         {
-            Debug.Log("Before delay");
             trailRenderer.enabled = false;
             StartCoroutine(ActivateDelay());
         }
@@ -25,7 +24,6 @@ public abstract class ObstacleBase : MonoBehaviour
     private IEnumerator ActivateDelay()
     {
         yield return new WaitForSeconds(activateDelay);
-        Debug.Log("After delay");
         trailRenderer.enabled = true;
     }
 

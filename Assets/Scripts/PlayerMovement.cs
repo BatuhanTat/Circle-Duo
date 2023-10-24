@@ -124,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
             Destroy(other.gameObject);
             OnWin?.Invoke(this, EventArgs.Empty);
             UpdatePosition();
-            Debug.Log($"Start position: {startPosition}");
+            //Debug.Log($"Start position: {startPosition}");
         }
     }
 

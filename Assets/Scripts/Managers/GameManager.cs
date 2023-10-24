@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     private void Player_OnWin(object sender, System.EventArgs e)
     {
         LoadNextlevel();
-        Debug.Log("OnWin");
+        //Debug.Log("OnWin");
     }
 
     private void Start()
