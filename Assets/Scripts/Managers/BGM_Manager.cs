@@ -7,10 +7,8 @@ public class BGM_Manager : MonoBehaviour
 {
     public static BGM_Manager instance { get; private set; }
 
-    [SerializeField] public Slider slider;
-
-    private AudioSource audioSource;
-    private float volume;
+    public AudioSource audioSource;
+    public float volume { get; private set; }
 
     private void Awake()
     {
@@ -22,23 +20,12 @@ public class BGM_Manager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
         audioSource = GetComponent<AudioSource>();
-        SetVolume();
+        //UpdateVolume();
     }
 
-    public void On_SliderChange()
-    {
-        audioSource.volume = slider.GetComponent<Slider>().value;
-        SaveBGMusic_Setting();
-    }
-
-    public void SaveBGMusic_Setting()
-    {
-        PlayerPrefs.SetFloat("BGM Volume", slider.GetComponent<Slider>().value);
-    }
-    private void SetVolume()
-    {
-        volume = PlayerPrefs.GetFloat("BGM Volume", 0.7f);
-        audioSource.volume = volume;
-        slider.GetComponent<Slider>().value = volume;
-    }
+    //public void UpdateVolume()
+    //{
+    //    volume = PlayerPrefs.GetFloat("BGM Volume", 0.7f);
+    //    audioSource.volume = volume;
+    //}
 }

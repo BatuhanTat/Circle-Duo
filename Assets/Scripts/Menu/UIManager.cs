@@ -8,11 +8,15 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] RectTransform mainPanel, levelPanel, settingsPanel;
     [SerializeField] ButtonStateHandler buttonStateHandler;
+    [SerializeField] Slider BGM_Slider;
 
     private Vector2 levelPanel_AnchoredPosition;
     private void Start()
     {
         mainPanel.DOAnchorPos(Vector2.zero, 0.25f);
+        //Debug.Log("BGM_Manager.instance.volume: " + BGM_Manager.instance.volume);
+        BGM_Slider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("BGM Volume", 0.7f);
+        BGM_Manager.instance.audioSource.volume = PlayerPrefs.GetFloat("BGM Volume", 0.7f);
     }
 
     public void LevelPanel_Open()
@@ -39,5 +43,17 @@ public class UIManager : MonoBehaviour
     {
         GameManager.instance.LoadLevel(button.name);
         Debug.Log("Clicked button name: " + button.name);
+    }
+
+    public void On_SliderChange()
+    {
+        BGM_Manager.instance.audioSource.volume = BGM_Slider.GetComponent<Slider>().value;
+        SaveBGMusic_Setting();
+    }
+
+    public void SaveBGMusic_Setting()
+    {
+        //Debug.Log("SaveBGMusic_Setting");
+        PlayerPrefs.SetFloat("BGM Volume", BGM_Slider.GetComponent<Slider>().value);
     }
 }

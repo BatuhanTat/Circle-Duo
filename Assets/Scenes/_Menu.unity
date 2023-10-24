@@ -432,6 +432,7 @@ MonoBehaviour:
   levelPanel: {fileID: 1994504667}
   settingsPanel: {fileID: 962934765}
   buttonStateHandler: {fileID: 1837574908}
+  BGM_Slider: {fileID: 801975672}
 --- !u!1 &458492877
 GameObject:
   m_ObjectHideFlags: 0
@@ -1294,8 +1295,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9178243159609748829}
-        m_TargetAssemblyTypeName: BGM_Manager, Assembly-CSharp
+      - m_Target: {fileID: 221120087}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: On_SliderChange
         m_Mode: 1
         m_Arguments:
@@ -4876,7 +4877,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2818ee94d7bc2d42ad10a5c4fa0a429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 801975672}
+  audioSource: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
