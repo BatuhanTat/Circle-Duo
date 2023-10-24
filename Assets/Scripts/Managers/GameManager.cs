@@ -87,7 +87,13 @@ public class GameManager : MonoBehaviour
         {
             // On completion of final level load menu, buildindex 0.
             StartCoroutine(LoadingDelay(0));
+            isGameOver = true;
         }
+    }
+    public void LoadMenu()
+    {
+        StartCoroutine(LoadingDelay(0));
+        isGameOver = true;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -101,15 +107,15 @@ public class GameManager : MonoBehaviour
     private IEnumerator LoadingDelay(object arg)
     {
         yield return new WaitForSeconds(levelLoadDelay);
-        isGameOver = false;
         DOTween.KillAll();
-        PlayerMovement.instance.RestartRotation();  
         if (arg is string)
         {
+            isGameOver = false;
             SceneManager.LoadSceneAsync((string)arg);
         }
         else if (arg is int)
         {
+            PlayerMovement.instance.RestartRotation((int)arg);
             SceneManager.LoadSceneAsync((int)arg);
         }
     }

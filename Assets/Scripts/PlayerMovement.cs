@@ -129,14 +129,20 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void RestartRotation()
+    public void RestartRotation(int levelIndex)
     {
         rb.angularVelocity = 0.0f;
         transform.DORotate(Vector3.zero, 1.0f)
            .SetEase(Ease.InOutBack)
            .OnComplete(() =>
            {
-               GameManager.instance.isGameOver = false;
+               if(levelIndex != 0)
+               { 
+                   GameManager.instance.isGameOver = false;
+                   Debug.Log("Restart rotation isgameover false");
+               }   
+               else
+               { GameManager.instance.isGameOver = true; }
            });
     }
 
