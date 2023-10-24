@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 350718228663792240}
   - component: {fileID: 6523509152754687835}
   m_Layer: 0
-  m_Name: Sliding Obstacle Holder
+  m_Name: Sliding Right Obstacle Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4436134058649079867}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.73, y: -4.64, z: 0}
+  m_LocalPosition: {x: 1.4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -74,8 +74,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e983f07620a26394ba0b5ed882297f60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slideDistance: -3
-  slideDuration: 3
+  slideDistance: -2
+  slideDuration: 1.7
 --- !u!1001 &2104435144454026170
 PrefabInstance:
   m_ObjectHideFlags: 0

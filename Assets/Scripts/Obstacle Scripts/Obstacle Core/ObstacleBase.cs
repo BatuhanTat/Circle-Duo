@@ -5,26 +5,34 @@ using UnityEngine;
 public abstract class ObstacleBase : MonoBehaviour
 {
     float activateDelay = 0.4f;
-    TrailRenderer trailRenderer;
+    TrailRenderer[] trailRenderers;
 
     private void Awake()
     {
-        trailRenderer = GetComponentInChildren<TrailRenderer>();
+        trailRenderers = GetComponentsInChildren<TrailRenderer>(true);
         ActivateTrailRenderer_WithDelay();
     }
 
     public void ActivateTrailRenderer_WithDelay()
     {
-        if (trailRenderer != null)
+        if (trailRenderers != null)
         {
-            trailRenderer.enabled = false;
-            StartCoroutine(ActivateDelay());
+                foreach (TrailRenderer trailRenderer in trailRenderers)
+                {
+                    // Disable each trailRenderer.
+                    trailRenderer.enabled = false;
+                }
+                StartCoroutine(ActivateDelay());
         }
     }
     private IEnumerator ActivateDelay()
     {
         yield return new WaitForSeconds(activateDelay);
-        trailRenderer.enabled = true;
+        foreach (TrailRenderer trailRenderer in trailRenderers)
+        {
+            // Enable each trailRenderer.
+            trailRenderer.enabled = true;
+        }
     }
 
     public abstract void ExecuteObstacle_Behaviour();

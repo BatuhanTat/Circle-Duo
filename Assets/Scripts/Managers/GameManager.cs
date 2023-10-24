@@ -34,7 +34,8 @@ public class GameManager : MonoBehaviour
 
     private void Player_OnWin(object sender, System.EventArgs e)
     {
-        LoadNextlevel();
+        CompleteLevel();
+        //LoadNextlevel();
         //Debug.Log("OnWin");
     }
 
@@ -44,6 +45,7 @@ public class GameManager : MonoBehaviour
 
         // Minus booting scene.
         levelCount = SceneManager.sceneCountInBuildSettings - 1;
+        //Debug.Log($"level count: {levelCount}");
         unlockedLevels = PlayerPrefs.GetInt("UnlockedLevels", 1); // Load the unlockedLevels value from PlayerPrefs
     }
 
@@ -101,7 +103,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(levelLoadDelay);
         isGameOver = false;
         DOTween.KillAll();
-
+        PlayerMovement.instance.RestartRotation();  
         if (arg is string)
         {
             SceneManager.LoadSceneAsync((string)arg);

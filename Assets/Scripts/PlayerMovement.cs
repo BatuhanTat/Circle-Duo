@@ -121,11 +121,23 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("LevelEnd"))
         {
+            GameManager.instance.isGameOver = true;
             Destroy(other.gameObject);
             OnWin?.Invoke(this, EventArgs.Empty);
-            UpdatePosition();
+            UpdatePosition();         
             //Debug.Log($"Start position: {startPosition}");
         }
+    }
+
+    public void RestartRotation()
+    {
+        rb.angularVelocity = 0.0f;
+        transform.DORotate(Vector3.zero, 1.0f)
+           .SetEase(Ease.InOutBack)
+           .OnComplete(() =>
+           {
+               GameManager.instance.isGameOver = false;
+           });
     }
 
     public void UpdatePosition()

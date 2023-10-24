@@ -26,7 +26,6 @@ public class CameraFollow : MonoBehaviour
 
     private void LateUpdate()
     {
-
         Vector3 targetPos;
         if (targetTestTransform != null)
         {
