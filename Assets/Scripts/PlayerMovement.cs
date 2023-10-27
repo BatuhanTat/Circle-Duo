@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
                 rb.angularVelocity = 0.0f;
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_WEBGL
             if (Input.GetKey(KeyCode.LeftArrow))
                 RotateLeft();
             else if (Input.GetKey(KeyCode.RightArrow))
