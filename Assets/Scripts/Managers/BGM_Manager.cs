@@ -20,12 +20,5 @@ public class BGM_Manager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
         audioSource = GetComponent<AudioSource>();
-        //UpdateVolume();
     }
-
-    //public void UpdateVolume()
-    //{
-    //    volume = PlayerPrefs.GetFloat("BGM Volume", 0.7f);
-    //    audioSource.volume = volume;
-    //}
 }

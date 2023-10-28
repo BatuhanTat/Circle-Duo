@@ -4,7 +4,7 @@ using System;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public event EventHandler OnStateChanged;
+
 
     #region Singleton class : PlayerMovement
 
@@ -59,7 +59,6 @@ public class PlayerMovement : MonoBehaviour
                 if (Input.GetMouseButtonDown(0))
                 {
                     touchPosX = mainCamera.ScreenToWorldPoint(Input.mousePosition).x;
-                    Debug.Log($"x position: {touchPosX}");
                 }
 
                 if (Input.GetMouseButton(0))
@@ -129,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
     {
         redBallCollider.enabled = true;
         blueBallCollider.enabled = true;
-        GameManager.instance.state = GameManager.State.Play;
+        GameManager.instance.SetState(GameManager.State.Play);  
         MoveUpwards();
     }
 
@@ -137,11 +136,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("LevelEnd"))
         {
-            GameManager.instance.isGameOver = true;
             Destroy(other.gameObject);
             OnWin?.Invoke(this, EventArgs.Empty);
             UpdatePosition();
-            //Debug.Log($"Start position: {startPosition}");
         }
     }
 
@@ -152,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
            .SetEase(Ease.InOutBack)
            .OnComplete(() =>
            {
-               GameManager.instance.state = GameManager.State.Play;
+               GameManager.instance.SetState(GameManager.State.Play);
            });
     }
 

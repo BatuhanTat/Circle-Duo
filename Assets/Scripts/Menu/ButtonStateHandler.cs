@@ -15,7 +15,6 @@ public class ButtonStateHandler : MonoBehaviour
     public void SetLevelButtons(int levelProgress)
     {
         CheckProgress(levelProgress);
-        //SetObjectsAlpha();
     }
 
     private void CheckProgress(int levelProgress)
@@ -30,33 +29,6 @@ public class ButtonStateHandler : MonoBehaviour
             else
             {
                 buttonList[i].interactable = false;
-            }
-        }
-    }
-
-    private void SetObjectsAlpha()
-    {
-        foreach (Button button in buttonList)
-        {
-            Transform parent = button.gameObject.transform;
-            Image mostInnerImage = parent.GetChild(0).GetChild(0).GetComponent<Image>();
-            if (!button.interactable)
-            {
-                Debug.Log("Button child count: " + parent.childCount);
-
-                if (mostInnerImage != null)
-                {
-                    Debug.Log("mostInnerImage " + mostInnerImage);
-                    mostInnerImage.enabled = false;
-                }
-
-            }
-            else
-            {
-                if (mostInnerImage != null)
-                {
-                    mostInnerImage.enabled = true;
-                }
             }
         }
     }

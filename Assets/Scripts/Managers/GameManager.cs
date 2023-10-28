@@ -2,9 +2,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using System.Collections;
+using System;
 
 public class GameManager : MonoBehaviour
 {
+    public event EventHandler OnStateChanged;
     public enum State
     {
         Menu,
@@ -12,17 +14,14 @@ public class GameManager : MonoBehaviour
         GameOver,
     }
 
-    public static GameManager instance { get; private set; }
-
     [SerializeField] private PlayerMovement player;
-
-    [HideInInspector] public bool isGameOver = true;
-    private int unlockedLevels; // Initially, only the first level is unlocked
-
+    public static GameManager instance { get; private set; }
     public State state;
+    
 
-    float levelLoadDelay = 0f;
-    int levelCount = 0;
+    private int unlockedLevels; // Initially, only the first level is unlocked
+    private float levelLoadDelay = 0f;
+    private int levelCount = 0;
    
     private void Awake()
     {
@@ -39,13 +38,9 @@ public class GameManager : MonoBehaviour
     }
 
 
-
-
     private void Player_OnWin(object sender, System.EventArgs e)
     {
         CompleteLevel();
-        //LoadNextlevel();
-        //Debug.Log("OnWin");
     }
 
     private void Start()
@@ -54,17 +49,16 @@ public class GameManager : MonoBehaviour
 
         // Minus booting scene.
         levelCount = SceneManager.sceneCountInBuildSettings - 1;
-        //Debug.Log($"level count: {levelCount}");
         unlockedLevels = PlayerPrefs.GetInt("UnlockedLevels", 1); // Load the unlockedLevels value from PlayerPrefs
     }
 
     public void CompleteLevel()
     {
         int levelIndex = SceneManager.GetActiveScene().buildIndex;
-        Debug.Log("Active Level Index: " + levelIndex);
+        //Debug.Log("Active Level Index: " + levelIndex);
         if (levelIndex == unlockedLevels)
         {
-            Debug.Log("Level Index " + levelIndex + "  unlockedLevels: " + unlockedLevels);
+            //Debug.Log("Level Index " + levelIndex + "  unlockedLevels: " + unlockedLevels);
             if (levelIndex == 1 || IsPreviousLevelCompleted(levelIndex))
             {
                 unlockedLevels++;
@@ -81,7 +75,6 @@ public class GameManager : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(sceneName))
         {
-            //Invoke(nameof(LoadDelayedScene), levelLoadDelay);
             StartCoroutine(LoadingDelay(sceneName));
         }
     }
@@ -95,19 +88,15 @@ public class GameManager : MonoBehaviour
         else
         {
             // On completion of final level load menu, buildindex 0.
-            StartCoroutine(LoadingDelay(0));
-            //isGameOver = true;
-            state = State.Menu;
+            LoadMenu(); 
         }
     }
     public void LoadMenu()
     {
-        //StartCoroutine(LoadingDelay(0));
-        //PlayerMovement.instance.RestartRotation();
         DOTween.KillAll();
         SceneManager.LoadSceneAsync(0);
         PlayerMovement.instance.Restart_OnComplete();
-        state = State.Menu;
+        SetState(State.Menu);
 
     }
 
@@ -142,6 +131,12 @@ public class GameManager : MonoBehaviour
         }
 
         return PlayerPrefs.GetInt("Level_" + (levelIndex - 1), 0) == 1;
+    }
+
+    public void SetState(State state)
+    {
+        this.state = state;
+        OnStateChanged?.Invoke(this, EventArgs.Empty);
     }
 
     private void OnDestroy()

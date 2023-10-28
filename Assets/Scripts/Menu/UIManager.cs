@@ -42,7 +42,7 @@ public class UIManager : MonoBehaviour
     public void SelectLevel(Button button)
     {
         GameManager.instance.LoadLevel(button.name);
-        Debug.Log("Clicked button name: " + button.name);
+        //Debug.Log("Clicked button name: " + button.name);
     }
 
     public void On_SliderChange()

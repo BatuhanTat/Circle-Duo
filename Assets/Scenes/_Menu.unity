@@ -1202,7 +1202,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -4.9999847, y: 0}
+  m_AnchoredPosition: {x: -4.9999695, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &801975670
@@ -1241,7 +1241,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.73333335}
   m_AnchorMax: {x: 0.90200007, y: 0.7616667}
-  m_AnchoredPosition: {x: -2.0885315, y: 123.74996}
+  m_AnchoredPosition: {x: -2.0885468, y: 123.749954}
   m_SizeDelta: {x: 85.96905, y: 14.166695}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &801975672
@@ -2757,7 +2757,7 @@ Transform:
   m_GameObject: {fileID: 1336769913}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.4, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3443,7 +3443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1692254226}
-  isGameOver: 1
+  state: 0
 --- !u!114 &1692254226 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6034853985985228024, guid: a1565b333620bc94a8a8bf40318e42ff, type: 3}
