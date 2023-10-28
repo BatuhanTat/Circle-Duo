@@ -4,13 +4,22 @@ using DG.Tweening;
 using System.Collections;
 
 public class GameManager : MonoBehaviour
-{   
+{
+    public enum State
+    {
+        Menu,
+        Play,
+        GameOver,
+    }
+
     public static GameManager instance { get; private set; }
 
     [SerializeField] private PlayerMovement player;
 
     [HideInInspector] public bool isGameOver = true;
     private int unlockedLevels; // Initially, only the first level is unlocked
+
+    public State state;
 
     float levelLoadDelay = 0f;
     int levelCount = 0;
@@ -87,13 +96,19 @@ public class GameManager : MonoBehaviour
         {
             // On completion of final level load menu, buildindex 0.
             StartCoroutine(LoadingDelay(0));
-            isGameOver = true;
+            //isGameOver = true;
+            state = State.Menu;
         }
     }
     public void LoadMenu()
     {
-        StartCoroutine(LoadingDelay(0));
-        isGameOver = true;
+        //StartCoroutine(LoadingDelay(0));
+        //PlayerMovement.instance.RestartRotation();
+        DOTween.KillAll();
+        SceneManager.LoadSceneAsync(0);
+        PlayerMovement.instance.Restart_OnComplete();
+        state = State.Menu;
+
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -110,14 +125,13 @@ public class GameManager : MonoBehaviour
         DOTween.KillAll();
         if (arg is string)
         {
-            isGameOver = false;
             SceneManager.LoadSceneAsync((string)arg);
         }
         else if (arg is int)
-        {
-            PlayerMovement.instance.RestartRotation((int)arg);
+        {     
             SceneManager.LoadSceneAsync((int)arg);
         }
+        PlayerMovement.instance.RestartRotation();
     }
 
     private bool IsPreviousLevelCompleted(int levelIndex)

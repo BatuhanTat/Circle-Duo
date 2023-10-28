@@ -20,7 +20,8 @@ public class BallCollision : MonoBehaviour
     {
         if(other.collider.CompareTag("Obstacle"))
         {
-            GameManager.instance.isGameOver = true;
+            //GameManager.instance.isGameOver = true;
+            GameManager.instance.state = GameManager.State.GameOver;
             explosionVFX.Play();
             if(other.collider != null)
             {

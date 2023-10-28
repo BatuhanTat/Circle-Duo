@@ -4,6 +4,8 @@ using System;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public event EventHandler OnStateChanged;
+
     #region Singleton class : PlayerMovement
 
     public event EventHandler OnWin;
@@ -17,9 +19,11 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
         instance = this;
-        DontDestroyOnLoad(gameObject);;
+        DontDestroyOnLoad(gameObject); ;
     }
     #endregion
+
+  
 
     [Header("Ball Colliders")]
     [SerializeField] CircleCollider2D blueBallCollider;
@@ -44,37 +48,44 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.instance.isGameOver)
+        switch (GameManager.instance.state)
         {
-            // Mobile Inputs. Touch on screen sides.
-            if (Input.GetMouseButtonDown(0))
-            {
-                touchPosX = mainCamera.ScreenToWorldPoint(Input.mousePosition).x;
-                Debug.Log($"x position: {touchPosX}");
-            }
-
-
-            if (Input.GetMouseButton(0))
-            {
-                if (touchPosX > 0.01f)
-                    RotateRight();
-                else
-                    RotateLeft();
-            }
-            else
-                rb.angularVelocity = 0.0f;
-#if UNITY_EDITOR || UNITY_WEBGL
-            if (Input.GetKey(KeyCode.LeftArrow))
-                RotateLeft();
-            else if (Input.GetKey(KeyCode.RightArrow))
+            case GameManager.State.Menu:
                 RotateRight();
+                break;
 
-            // Stop rotation when the key is released
-            if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
-                rb.angularVelocity = 0.0f;
+            case GameManager.State.Play:
+                // Mobile Inputs. Touch on screen sides.
+                if (Input.GetMouseButtonDown(0))
+                {
+                    touchPosX = mainCamera.ScreenToWorldPoint(Input.mousePosition).x;
+                    Debug.Log($"x position: {touchPosX}");
+                }
+
+                if (Input.GetMouseButton(0))
+                {
+                    if (touchPosX > 0.01f)
+                        RotateRight();
+                    else
+                        RotateLeft();
+                }
+                else
+                    rb.angularVelocity = 0.0f;
+#if UNITY_EDITOR || UNITY_WEBGL
+                if (Input.GetKey(KeyCode.LeftArrow))
+                    RotateLeft();
+                else if (Input.GetKey(KeyCode.RightArrow))
+                    RotateRight();
+
+                // Stop rotation when the key is released
+                if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
+                    rb.angularVelocity = 0.0f;
 #endif
+                break;
+        
+            case GameManager.State.GameOver:
+                break;
         }
-
     }
 
     void MoveUpwards()
@@ -92,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Restart()
     {
-        OnRestart?.Invoke(this, EventArgs.Empty);   
+        OnRestart?.Invoke(this, EventArgs.Empty);
         // Disabling the colliders so that new collisions will not be happened
         // while balls coming back to the initial position & rotation.
         redBallCollider.enabled = false;
@@ -110,11 +121,16 @@ public class PlayerMovement : MonoBehaviour
             .SetEase(Ease.OutFlash)
              .OnComplete(() =>
              {
-                 redBallCollider.enabled = true;
-                 blueBallCollider.enabled = true;
-                 GameManager.instance.isGameOver = false;
-                 MoveUpwards();
+                 Restart_OnComplete();
              });
+    }
+
+    public void Restart_OnComplete()
+    {
+        redBallCollider.enabled = true;
+        blueBallCollider.enabled = true;
+        GameManager.instance.state = GameManager.State.Play;
+        MoveUpwards();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -124,25 +140,19 @@ public class PlayerMovement : MonoBehaviour
             GameManager.instance.isGameOver = true;
             Destroy(other.gameObject);
             OnWin?.Invoke(this, EventArgs.Empty);
-            UpdatePosition();         
+            UpdatePosition();
             //Debug.Log($"Start position: {startPosition}");
         }
     }
 
-    public void RestartRotation(int levelIndex)
+    public void RestartRotation()
     {
         rb.angularVelocity = 0.0f;
         transform.DORotate(Vector3.zero, 1.0f)
            .SetEase(Ease.InOutBack)
            .OnComplete(() =>
            {
-               if(levelIndex != 0)
-               { 
-                   GameManager.instance.isGameOver = false;
-                   Debug.Log("Restart rotation isgameover false");
-               }   
-               else
-               { GameManager.instance.isGameOver = true; }
+               GameManager.instance.state = GameManager.State.Play;
            });
     }
 
