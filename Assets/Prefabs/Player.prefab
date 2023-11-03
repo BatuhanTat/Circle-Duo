@@ -798,6 +798,7 @@ MonoBehaviour:
   redBallCollider: {fileID: 6034853985439109173}
   speed: 1.7
   rotationSpeed: 200
+  startDirectly: 0
 --- !u!1001 &5554168886359477794
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     }
     #endregion
 
-  
+
 
     [Header("Ball Colliders")]
     [SerializeField] CircleCollider2D blueBallCollider;
@@ -32,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Speed parameters")]
     [SerializeField] float speed;
     [SerializeField] float rotationSpeed;
+    [Space]
+    [SerializeField] bool startDirectly;
 
     private Rigidbody2D rb;
     private Vector3 startPosition;
@@ -44,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
         MoveUpwards();
+        if (startDirectly)
+        { GameManager.instance.SetState(GameManager.State.Play); }
     }
 
     private void Update()
@@ -81,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
                     rb.angularVelocity = 0.0f;
 #endif
                 break;
-        
+
             case GameManager.State.GameOver:
                 break;
         }
@@ -128,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
     {
         redBallCollider.enabled = true;
         blueBallCollider.enabled = true;
-        GameManager.instance.SetState(GameManager.State.Play);  
+        GameManager.instance.SetState(GameManager.State.Play);
         MoveUpwards();
     }
 
